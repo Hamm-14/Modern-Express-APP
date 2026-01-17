@@ -1,6 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { User } from "./entity/User";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -9,9 +17,10 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   logging: false,
   entities: [User],
-  migrations: [],
+  migrations: [__dirname + "/db/migrations/**/*{.js,.ts}"],
+  migrationsRun: true,
   subscribers: [],
 });

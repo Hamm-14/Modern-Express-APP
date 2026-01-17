@@ -1,14 +1,15 @@
 import "reflect-metadata";
 import "dotenv/config";
-import express, { Application, Response } from "express";
-import { AppDataSource } from "./data-source";
+import express, { Application } from "express";
+import { AppDataSource } from "./datasource";
+import rootRouter from "./routes";
 
 const app: Application = express();
 const PORT = process.env.PORT || 4000;
 
-app.get("/", (_, res: Response) => {
-  res.send("Home path called...");
-});
+app.use(express.json());
+
+app.use("/api", rootRouter);
 
 try {
   await AppDataSource.initialize();

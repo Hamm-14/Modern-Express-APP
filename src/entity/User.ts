@@ -5,6 +5,9 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Column({ type: "varchar", unique: true })
+  email!: string;
+
   @Column({ type: "varchar" })
   firstName: string;
 
@@ -14,7 +17,8 @@ export class User {
   @Column({ type: "int" })
   age: number;
 
-  constructor(firstName: string, lastName: string, age: number) {
+  constructor(email: string, firstName: string, lastName: string, age: number) {
+    this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
