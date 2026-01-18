@@ -19,3 +19,7 @@ export const validateSchema =
       return res.status(400).json("Invalid request");
     }
   };
+
+export const add = (a: number, b: number): number => {
+  return a + b;
+};
